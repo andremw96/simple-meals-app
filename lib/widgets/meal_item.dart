@@ -17,6 +17,35 @@ class MealItem extends StatelessWidget {
   final Complexity complexity;
   final Affordability affordability;
 
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.Simple:
+        return 'Simple';
+      case Complexity.Challenging:
+        return 'Challenging';
+      case Complexity.Hard:
+        return 'Hard';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return 'Affordable';
+        break;
+      case Affordability.Pricey:
+        return 'Pricey';
+        break;
+      case Affordability.Luxurious:
+        return "Luxurious";
+        break;
+      default:
+        return 'Unknown';
+    }
+  }
+
   void selectMeal() {}
 
   @override
@@ -44,9 +73,65 @@ class MealItem extends StatelessWidget {
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
+                ),
+                Positioned(
+                  bottom: 20,
+                  right: 10,
+                  child: Container(
+                    width: 220,
+                    color: Colors.black54,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 10,
+                    ),
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 26,
+                        color: Colors.white,
+                      ),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
                 )
               ],
             ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.schedule,
+                      ),
+                      const SizedBox(width: 5),
+                      Text("$duration min"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.work,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(complexityText),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.work,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(affordabilityText),
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
