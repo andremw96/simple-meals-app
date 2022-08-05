@@ -37,44 +37,45 @@ class MealDetailScreen extends StatelessWidget {
     final selectedMeal =
         DUMMY_MEALS.firstWhere((element) => element.id == mealId);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            selectedMeal.title,
-          ),
+      appBar: AppBar(
+        title: Text(
+          selectedMeal.title,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 300,
-                width: double.infinity,
-                child: Image.network(
-                  selectedMeal.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: Image.network(
+                selectedMeal.imageUrl,
+                fit: BoxFit.cover,
               ),
-              buildSectionTitle("Ingredients", context),
-              buildContainer(
-                ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Card(
-                      color: Theme.of(context).accentColor,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 10,
-                        ),
-                        child: Text(
-                          selectedMeal.ingredients[index],
-                        ),
+            ),
+            buildSectionTitle("Ingredients", context),
+            buildContainer(
+              ListView.builder(
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Theme.of(context).accentColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 5,
+                        horizontal: 10,
                       ),
-                    );
-                  },
-                  itemCount: selectedMeal.ingredients.length,
-                ),
+                      child: Text(
+                        selectedMeal.ingredients[index],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: selectedMeal.ingredients.length,
               ),
-              buildSectionTitle("Steps", context),
-              buildContainer(ListView.builder(
+            ),
+            buildSectionTitle("Steps", context),
+            buildContainer(
+              ListView.builder(
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
@@ -91,9 +92,19 @@ class MealDetailScreen extends StatelessWidget {
                   );
                 },
                 itemCount: selectedMeal.steps.length,
-              ))
-            ],
-          ),
-        ));
+              ),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.delete,
+        ),
+        onPressed: () {
+          Navigator.of(context).pop(mealId);
+        },
+      ),
+    );
   }
 }
